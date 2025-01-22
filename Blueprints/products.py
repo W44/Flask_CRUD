@@ -1,14 +1,11 @@
 from http import HTTPStatus
 import json
-# from urllib import response
-from Blueprints import products
-from flask import Flask, jsonify, render_template, request, redirect, Response
+from flask import request, Response
 from Blueprints.products import products
 from extensiondb import db
 from Models.models import ProductLst
-from Blueprints.authentication import AuthenticateDecor,AutherizeDecor
-from flask_user import login_required,UserManager
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from Blueprints.authentication import AutherizeDecor
+from flask_jwt_extended import jwt_required
 
 
 @products.route("/", methods=[ "POST", "DELETE", "PUT"],endpoint="Myfunction")

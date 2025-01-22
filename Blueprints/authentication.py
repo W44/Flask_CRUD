@@ -1,20 +1,12 @@
 from http import HTTPStatus
-from http.client import HTTPResponse
-import json
-from textwrap import indent
-from tokenize import Name
-from flask import Flask, Response, render_template, request, redirect
 from Blueprints import authentication
-# from flask_sqlalchemy import SQLAlchemy
 from extensiondb import db
-from Models.models import ProductLst, Users,Token
-import jwt # import jwt library
+from Models.models import Users, Token
 import datetime
 from flask import Response, request
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
 SECRET_KEY = "python_jwt"
-from flask_jwt_extended import jwt_required, get_jwt_identity
-# json data to encode
 
 
 @authentication.route("/", methods=["GET", "POST"])
