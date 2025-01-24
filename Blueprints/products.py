@@ -1,16 +1,16 @@
 from http import HTTPStatus
 import json
 from flask import request, Response
-from Blueprints.products import products
+from Blueprints import products
 from extensiondb import db
 from Models.models import ProductLst
-from Blueprints.authentication import AutherizeDecor
+from Blueprints.authentication import authorize_decor
 from flask_jwt_extended import jwt_required
 
 
-@products.route("/", methods=[ "POST", "DELETE", "PUT"],endpoint="Myfunction")
+@products.route("/", methods=["POST", "DELETE", "PUT"],endpoint="Myfunction")
 @jwt_required()
-@AutherizeDecor
+@authorize_decor
 def hello_world():
     if request.method == "POST":
         body_json = request.json
@@ -76,7 +76,7 @@ def hello_world():
 
 @products.route("/getall", methods=["GET"])
 @jwt_required()
-@AutherizeDecor
+@authorize_decor
 def get_all():
     all_products = ProductLst.query.all()
     temp_json = []

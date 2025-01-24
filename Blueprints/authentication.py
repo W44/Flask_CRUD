@@ -48,7 +48,7 @@ def register():
     return Response("<p>request Method not supported</p>", HTTPStatus.METHOD_NOT_ALLOWED)
 
 
-def AutherizeDecor(func):
+def authorize_decor(func):
     def inner(*args, **kwargs):
         temp_token = Token()
         user_id = get_jwt_identity()
@@ -66,7 +66,7 @@ def AutherizeDecor(func):
     return inner
 
 
-def AuthenticateDecor(func):
+def authenticate_decor(func):
     def inner(*args, **kwargs):
         temp_token = Token()
         to_auth = Token.query.filter_by(token=request.headers["Authorization"].split(" ")[1]).first()
