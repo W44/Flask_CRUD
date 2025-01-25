@@ -8,10 +8,10 @@ from Blueprints.authentication import authorize_decor
 from flask_jwt_extended import jwt_required
 
 
-@products.route("/", methods=["POST", "DELETE", "PUT"],endpoint="Myfunction")
+@products.route("/", methods=["POST", "DELETE", "PUT"])
 @jwt_required()
 @authorize_decor
-def hello_world():
+def product():
     if request.method == "POST":
         body_json = request.json
 
@@ -59,9 +59,9 @@ def hello_world():
     return Response({}, HTTPStatus.METHOD_NOT_ALLOWED)
 
 
-@products.route("/", methods=["GET"],endpoint="Myfunction2")
+@products.route("/", methods=["GET"])
 @jwt_required()
-def hello_world():
+def product_get():
     to_return = ProductLst()
     result_filter = ProductLst.query.filter_by(sno=request.args.get("sno")).first()
     if result_filter is not None:

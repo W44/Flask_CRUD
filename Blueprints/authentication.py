@@ -32,7 +32,6 @@ def register():
         if to_auth is not None:
             temp_user.Name = to_auth.Name
             temp_user.password = to_auth.password
-            x=44
             temp_user.sno = to_auth.sno
             temp_user.permission = to_auth.permission
             authorize = temp_user.check_password(request.args.get("Password"))

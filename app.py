@@ -1,16 +1,10 @@
-# from crypt import methods
-# from unicodedata import name
 from config import DevConfig
-from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from Blueprints.products import products
 from Blueprints.authentication import authentication
 from Models.models import db, ProductLst, Users
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
-
-
-# cannot import name 'db' from partially initialized module 'app' (most likely due to a circular import)
 
 
 def create_app(config_class=DevConfig):
