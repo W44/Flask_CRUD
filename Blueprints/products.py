@@ -11,10 +11,9 @@ from flask_jwt_extended import jwt_required
 @products.route("/", methods=["POST", "DELETE", "PUT"])
 @jwt_required()
 @authorize_decor
-def product():
+def product_post():
     if request.method == "POST":
         body_json = request.json
-
         myf1_db = ProductLst(Name=body_json["Name"], Price=body_json["Price"])
         to_check = ProductLst.query.filter_by(Name=body_json["Name"]).first()
         if to_check is None:
@@ -23,40 +22,48 @@ def product():
         temp_json = []
         for product in all_products:
             temp_json.append(json.dumps(product.to_dict(), indent=4))
-        return Response(temp_json, HTTPStatus.OK)
-    elif request.method == "DELETE":
-        to_del = ProductLst.query.filter_by(sno=request.args.get("sno")).first()
-        if to_del is not None:
-            db.session.delete(to_del)
-            db.session.commit()
-            all_products = ProductLst.query.all()
-            temp_json = []
-            for product in all_products:
-                temp_json.append(json.dumps(product.to_dict(), indent=4))
-            return Response(temp_json, HTTPStatus.OK)
-        return Response({}, HTTPStatus.NOT_FOUND)
-    elif request.method == "PUT":
-        product_name = request.args.get("name")
-        product_price = request.args.get("price")
-        to_update = ProductLst.query.filter_by(sno=request.args.get("sno")).first()
-        if to_update is not None and to_update.Name != product_name and to_update.Price != product_price:
-            to_update.Name = product_name
-            to_update.Price = product_price
-            db.session.add(to_update)
-            db.session.commit()
-            all_products = ProductLst.query.all()
-            temp_json = []
-            for product in all_products:
-                temp_json.append(json.dumps(product.to_dict(), indent=4))
-            return Response(temp_json, HTTPStatus.OK)
-        else:
-            all_products = ProductLst.query.all()
-            temp_json = []
-            for product in all_products:
-                temp_json.append(json.dumps(product.to_dict(), indent=4))
-            return Response(temp_json, HTTPStatus.CONFLICT)
+        return Response(temp_json, HTTPStatus.NOT_ACCEPTABLE)
 
-    return Response({}, HTTPStatus.METHOD_NOT_ALLOWED)
+
+@products.route("/", methods=["DELETE"])
+@jwt_required()
+@authorize_decor
+def product_delete():
+    to_del = ProductLst.query.filter_by(sno=request.args.get("sno")).first()
+    if to_del is not None:
+        db.session.delete(to_del)
+        db.session.commit()
+        all_products = ProductLst.query.all()
+        temp_json = []
+        for product in all_products:
+            temp_json.append(json.dumps(product.to_dict(), indent=4))
+        return Response(temp_json, HTTPStatus.OK)
+    return Response({}, HTTPStatus.NOT_FOUND)
+
+
+@products.route("/", methods=["PUT"])
+@jwt_required()
+@authorize_decor
+def product_put():
+    product_name = request.args.get("name")
+    product_price = request.args.get("price")
+    to_update = ProductLst.query.filter_by(sno=request.args.get("sno")).first()
+    if to_update is not None and to_update.Name != product_name and to_update.Price != product_price:
+        to_update.Name = product_name
+        to_update.Price = product_price
+        db.session.add(to_update)
+        db.session.commit()
+        all_products = ProductLst.query.all()
+        temp_json = []
+        for product in all_products:
+            temp_json.append(json.dumps(product.to_dict(), indent=4))
+        return Response(temp_json, HTTPStatus.OK)
+    else:
+        all_products = ProductLst.query.all()
+        temp_json = []
+        for product in all_products:
+            temp_json.append(json.dumps(product.to_dict(), indent=4))
+        return Response(temp_json, HTTPStatus.CONFLICT)
 
 
 @products.route("/", methods=["GET"])
