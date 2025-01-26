@@ -1,8 +1,8 @@
-from config import DevConfig
+from Utils.config import DevConfig
 from flask import Flask
 from Blueprints.products import products
 from Blueprints.authentication import authentication
-from Models.models import db, ProductLst, Users
+from Models.models import db
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 

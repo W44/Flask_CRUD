@@ -1,6 +1,6 @@
 from sqlalchemy import inspect
 
-from extensiondb import db
+from Utils.extensiondb import db
 
 
 class ModelMixins:

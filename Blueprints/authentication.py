@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from Blueprints import authentication
-from extensiondb import db
+from Utils.extensiondb import db
 from Models.models import Users, Token
 import datetime
 from flask import Response, request

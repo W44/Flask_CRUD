@@ -2,7 +2,7 @@ from http import HTTPStatus
 import json
 from flask import request, Response
 from Blueprints import products
-from extensiondb import db
+from Utils.extensiondb import db
 from Models.models import ProductLst
 from Blueprints.authentication import authorize_decor
 from flask_jwt_extended import jwt_required

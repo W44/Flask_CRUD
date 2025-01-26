@@ -1,11 +1,9 @@
 #from app import db
-from flask_sqlalchemy import SQLAlchemy
 #from Models.ModelMixins import ModelMixin
-from sqlalchemy import Column, ForeignKey, Integer, Table
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base
 from Models.ModelMixins import ModelMixins
-from flask_user import login_required, UserManager, UserMixin
-from extensiondb import db
+from flask_user import UserMixin
+from Utils.extensiondb import db
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 
