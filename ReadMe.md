@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ## Application Execution Flow
 
 1. **Register a New User:**
-   - Use the PUT API endpoint:
+   - Use the POST API endpoint:
      ```
      http://localhost:8000/user
      ```
